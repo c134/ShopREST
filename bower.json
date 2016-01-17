@@ -1,0 +1,24 @@
+{
+  "name": "ShopREST",
+  "version": "0.0.0",
+  "authors": [
+    "c134 <crt782@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_resources",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-bootstrap": "~1.0.3",
+    "angular": "angularjs#~1.4.8"
+  }
+}
