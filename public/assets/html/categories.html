@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="header">
+        <h3>{{title}}</h3>
+    </div>
+    <div data-ng-app="dashboard">
+        <div ng-controller="CategoriesController">
+            <div id="createCategoryForm" ng-show="showForm">
+                <form>
+                    <div class="form-group">
+                        <label for="categoryName">Name</label>
+                        <input ng-model="category.name" type="text" class="form-control" id="categoryName">
+                        <label for="categoryDescription">Description</label>
+                        <textarea ng-model="category.description" class="form-control"
+                                  id="categoryDescription"></textarea>
+                    </div>
+                </form>
+            </div>
+            <button class="btn btn-default" ng-hide="showForm" ng-click="showCreateCategory()">Show</button>
+            <button class="btn btn-default" ng-show="showForm" ng-click="hideCreateCategory()">Hide</button>
+            <!--<div class="col-md-12">-->
+            <button type="submit" class="btn btn-success" ng-show="showCreateButton" ng-click="createCategory(category)">
+                Create
+            </button>
+            <button type="submit" class="btn btn-success" ng-show="showEditButton" ng-click="editCategory(category)">
+                Edit
+            </button>
+            <!--</div>-->
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <th>Category name</th>
+                        <th>Category description</th>
+                        <th>image</th>
+                    </tr>
+                    <tbody>
+                    <tr ng-repeat="category in categories">
+                        <td>
+                            {{category.category_name}}
+                        </td>
+                        <td>
+                            {{category.category_description}}
+                        </td>
+                        <td>
+                            {{category.image_path}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="showEditCategoryForm(category)">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
