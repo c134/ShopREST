@@ -20,5 +20,10 @@
   "dependencies": {
     "angular-ui-bootstrap": "~1.0.3",
     "angular": "angularjs#~1.4.8"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.6",
+    "angular-route": "~1.4.8",
+    "angular-resource": "~1.4.8"
   }
 }
