@@ -13,12 +13,12 @@ class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Category::all();
+        return Category::orderBy('category_name', $request->sorting)->get();
     }
 
     /**
@@ -62,21 +62,12 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $category = Category::find($request->id);
-        if ($category) {
-            $products = Product::where('category_id', '=', $category->id)->all();
-            if ($products) {
-                $products->delete();
-            }
-            $category->delete();
-            return response()->json(['success' => "category deleted"], 200);
-        } else {
-            return response()->json(['error' => "category with given name not found"], 422);
-        }
+        Category::destroy($id);
+        return response()->json(['success' => "category deleted"], 200);
     }
 }

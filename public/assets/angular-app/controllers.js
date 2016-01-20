@@ -1,11 +1,21 @@
 dashboard.controller('CategoriesController', function ($scope, Category, $http) {
     $scope.$parent.title = "Categories";
     $scope.$parent.hash = "categories";
-    $scope.categories = Category.all();
     $scope.showForm = false;
     $scope.showCreateButton = false;
     $scope.showEditButton = false;
     $scope.category = {};
+    $scope.sorting = {
+        availableOptions: [
+            {id: 'asc', name: 'ASC'},
+            {id: 'desc', name: 'DESC'}
+        ],
+        selectedOption: {id: 'asc', name: 'ASC'}
+    };
+    $scope.categories = Category.all({sorting: $scope.sorting.selectedOption.id});
+    $scope.selectSort = function () {
+        $scope.categories = Category.all({sorting:$scope.sorting.selectedOption.id});
+    };
     $scope.showCreateCategory = function () {
         $scope.showForm = true;
         $scope.showCreateButton = true;
@@ -26,6 +36,8 @@ dashboard.controller('CategoriesController', function ($scope, Category, $http) 
             $scope.categories.push(responce.created_category);
             $scope.category.name = null;
             $scope.category.description = null;
+        }, function (responce) {
+
         });
     };
     $scope.showEditCategoryForm = function (category) {
@@ -37,12 +49,17 @@ dashboard.controller('CategoriesController', function ($scope, Category, $http) 
         $scope.category.description = category.category_description;
     };
     $scope.editCategory = function (category) {
-        Category.update(category, function (updated_website) {
-            category = updated_website;
+        Category.update(category, function () {
+            $scope.categories = Category.all();
         }, function () {
 
         });
     };
+    $scope.deleteCategory = function (category) {
+        Category.delete({id: category.id}, function () {
+            $scope.categories.splice($scope.categories.indexOf(category), 1);
+        });
+    }
 
 });
 dashboard.controller('ProductsController', function ($scope) {
