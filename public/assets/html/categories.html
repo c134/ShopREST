@@ -1,36 +1,44 @@
-<div class="container">
-    <div class="header">
-        <h3>{{title}}</h3>
-    </div>
-    <div data-ng-app="dashboard">
-        <div ng-controller="CategoriesController">
-            <div id="createCategoryForm" ng-show="showForm">
+<div class="container" class="col-md-12">
+    <div data-ng-app="dashboard" class="col-md-12">
+        <div class="header col-md-12">
+            <h3>{{title}}</h3>
+        </div>
+        <div ng-controller="CategoriesController" class="col-md-12">
+            <div id="createCategoryForm" ng-show="showForm" class="row">
                 <form>
                     <div class="form-group">
-                        <label for="categoryName">Name</label>
-                        <input ng-model="category.name" type="text" class="form-control" id="categoryName">
-                        <label for="categoryDescription">Description</label>
+                        <div  class="form-group col-md-6">
+                            <label for="categoryName">Name</label>
+                            <input ng-model="category.name" type="text" class="form-control" id="categoryName">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="categoryDescription">Description</label>
                         <textarea ng-model="category.description" class="form-control"
                                   id="categoryDescription"></textarea>
+                        </div>
                     </div>
                 </form>
             </div>
-            <button class="btn btn-default" ng-hide="showForm" ng-click="showCreateCategory()">Show</button>
-            <button class="btn btn-default" ng-show="showForm" ng-click="hideCreateCategory()">Hide</button>
-            <!--<div class="col-md-12">-->
-            <button type="submit" class="btn btn-success" ng-show="showCreateButton" ng-click="createCategory(category)">
-                Create
-            </button>
-            <button type="submit" class="btn btn-success" ng-show="showEditButton" ng-click="editCategory(category)">
-                Edit
-            </button>
-            <!--</div>-->
-            <div class="col-md-12">
+            <div class="form-group">
+                <button class="btn btn-default" ng-hide="showForm" ng-click="showCreateCategory()">Show</button>
+                <button class="btn btn-default" ng-show="showForm" ng-click="hideCreateCategory()">Hide</button>
+                <button type="submit" class="btn btn-success" ng-show="showCreateButton"
+                        ng-click="createCategory(category)">
+                    Create
+                </button>
+                <button type="submit" class="btn btn-success" ng-show="showEditButton" ng-click="editCategory(category)">
+                    Edit
+                </button>
+                <div class="pull-right">
+                    <select class="form-control" ng-options="sorting.name for sorting in sorting.availableOptions track by sorting.id"
+                            ng-model="sorting.selectedOption" ng-change="selectSort()"></select>
+                </div>
+            </div>
+            <div class="row col-md-12">
                 <table class="table">
                     <tr>
                         <th>Category name</th>
                         <th>Category description</th>
-                        <th>image</th>
                     </tr>
                     <tbody>
                     <tr ng-repeat="category in categories">
@@ -41,11 +49,8 @@
                             {{category.category_description}}
                         </td>
                         <td>
-                            {{category.image_path}}
-                        </td>
-                        <td>
                             <button class="btn btn-primary" ng-click="showEditCategoryForm(category)">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger" ng-click="deleteCategory(category)">Delete</button>
                         </td>
                     </tr>
                     </tbody>
