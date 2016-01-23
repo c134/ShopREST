@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::resource('api/categories', 'CategoriesController');
 
+Route::resource('api/products', 'ProductsController');

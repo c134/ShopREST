@@ -53,7 +53,7 @@ class CategoriesController extends Controller
             $category->category_name = $request->name;
             $category->category_description = $request->description;
             $category->save();
-            return response()->json(['success' => "category updated", 'updated_category' => $category], 200);
+            return response()->json(['success' => "category updated"], 200);
         } else {
             return response()->json(['error' => "category with given name not found"], 422);
         }
