@@ -22,6 +22,7 @@ dashboard.controller('CategoriesController', function ($scope, Category, $http) 
     };
     $scope.hideCreateForm = function () {
         $scope.showForm = false;
+        $scope.showCreateButton = false;
     };
 
     $scope.create = function () {
@@ -67,7 +68,6 @@ dashboard.controller('ProductsController', function ($scope, Product, Category, 
 
     Category.all({sorting: "asc"})
         .$promise.then(function (categories) {
-            console.log(categories);
             $scope.categories = {
                 availableOptions: categories
             };
@@ -88,8 +88,9 @@ dashboard.controller('ProductsController', function ($scope, Product, Category, 
         $scope.showForm = true;
         $scope.showCreateButton = true;
     };
-    $scope.hideForm = function () {
+    $scope.hideCreateForm = function () {
         $scope.showForm = false;
+        $scope.showCreateButton = false;
     };
     $scope.test = {};
     $scope.create = function () {
@@ -100,24 +101,19 @@ dashboard.controller('ProductsController', function ($scope, Product, Category, 
             product_category_name: $scope.product.category.category_name,
             product_price: $scope.product.price
         }, function (responce) {
-            console.log(responce);
             $scope.created_product = {
-                //created_at: responce.created_at,
                 category: {
                     id: responce.category_id,
                     category_name: responce.category_name
                 },
                 product_name: responce.created_product.product_name,
-                product_description:responce.created_product.product_description,
+                product_description: responce.created_product.product_description,
                 product_price: responce.created_product.product_price,
-                id: responce.id
+                id: responce.created_product.id
 
             };
             $scope.products.push($scope.created_product);
-            $scope.product.name = null;
-            $scope.product.description = null;
-            $scope.product.category = null;
-            $scope.product.price = null;
+            $scope.product = {};
         }, function (responce) {
 
         });
@@ -145,8 +141,18 @@ dashboard.controller('ProductsController', function ($scope, Product, Category, 
         });
     }
 });
-dashboard.controller('DashboardController', function ($scope) {
-    $scope.$parent.title = "Dashboard";
-    $scope.$parent.hash = "dashboard";
-
+dashboard.controller('OverviewController', function ($scope, Product) {
+    $scope.$parent.title = "Overview";
+    $scope.$parent.hash = "overview";
+    $scope.sorting = {
+        availableOptions: [
+            {id: 'asc', name: 'ASC'},
+            {id: 'desc', name: 'DESC'}
+        ],
+        selectedOption: {id: 'asc', name: 'ASC'}
+    };
+    $scope.products = Product.all({sorting: $scope.sorting.selectedOption.id});
+    $scope.selectSort = function () {
+        $scope.products = Product.all({sorting: $scope.sorting.selectedOption.id});
+    };
 });

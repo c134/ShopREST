@@ -10,8 +10,8 @@ dashboard.config(['$routeProvider',
                 controller:'ProductsController'
             }).
             when('/', {
-                templateUrl:'assets/html/dashboard.html',
-                controller:'DashboardController'
+                templateUrl:'assets/html/overview.html',
+                controller:'OverviewController'
             })
     }
 ]);
