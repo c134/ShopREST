@@ -1,6 +1,80 @@
-<div class="container">
-    <div class="header"><h3>{{title}}</h3></div>
-    <div data-ng-app="dashboard">
-
+<div class="container" class="col-md-12">
+    <div data-ng-app="dashboard" class="col-md-12">
+        <div class="header col-md-12">
+            <h3>{{title}}</h3>
+        </div>
+        <div class="col-md-12">
+            <div id="createForm" ng-show="showForm" class="row">
+                <form>
+                    <div class="form-group">
+                        <div  class="form-group col-md-6">
+                            <label for="productName">Name</label>
+                            <input ng-model="product.name" type="text" class="form-control" id="productName">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="categoryName">Category</label>
+                            <select id="categoryName" class="form-control"
+                                  ng-model="product.category"  ng-options="category.category_name for category in categories.availableOptions track by category.id"></select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="price">Price</label>
+                            <input ng-model="product.price" type="text" class="form-control" id="price">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="productDescription">Description</label>
+                        <textarea ng-model="product.description" class="form-control"
+                                  id="productDescription"></textarea>
+                        </div>
+                    </div>
+                    <pre>{{product}}</pre>
+                </form>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" ng-hide="showForm" ng-click="showCreateForm()">Show</button>
+                <button class="btn btn-default" ng-show="showForm" ng-click="hideCreateForm()">Hide</button>
+                <button type="submit" class="btn btn-success" ng-show="showCreateButton"
+                        ng-click="create(product)">
+                    Create
+                </button>
+                <button type="submit" class="btn btn-success" ng-show="showEditButton" ng-click="edit(product)">
+                    Edit
+                </button>
+                <div class="pull-right">
+                    <select class="form-control" ng-options="sorting.name for sorting in sorting.availableOptions track by sorting.id"
+                            ng-model="sorting.selectedOption" ng-change="selectSort()"></select>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <table class="table">
+                    <tr>
+                        <th>Product name</th>
+                        <th>Product description</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Options</th>
+                    </tr>
+                    <tbody>
+                    <tr ng-repeat="product in products">
+                        <td>
+                            {{product.product_name}}
+                        </td>
+                        <td>
+                            {{product.product_description}}
+                        </td>
+                        <td>
+                            {{product.category.category_name}}
+                        </td>
+                        <td>
+                            {{product.product_price}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="showEditForm(product)">Edit</button>
+                            <button class="btn btn-danger" ng-click="delete(product)">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
