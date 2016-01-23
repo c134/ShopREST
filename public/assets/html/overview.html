@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="header"><h3>{{title}}</h3></div>
+    <div data-ng-app="dashboard">
+        <div class="pull-right">
+            <select class="form-control" ng-options="sorting.name for sorting in sorting.availableOptions track by sorting.id"
+                    ng-model="sorting.selectedOption" ng-change="selectSort()"></select>
+        </div>
+        <table class="table">
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Product Description</th>
+                <th>Category Description</th>
+                <th>Price</th>
+            </tr>
+            <tbody>
+            <tr ng-repeat="product in products">
+                <td>
+                    {{product.product_name}}
+                </td>
+                <td>
+                    {{product.product_description}}
+                </td>
+                <td>
+                    {{product.category.category_name}}
+                </td>
+                <td>
+                    {{product.category.category_description}}
+                </td>
+                <td>
+                    {{product.product_price}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
