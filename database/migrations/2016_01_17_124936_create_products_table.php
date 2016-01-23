@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('product_description')->nullable();
             $table->string('image_path')->nullable();
             $table->decimal('product_price');
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,8 +31,8 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('transaction_purchases', function (Blueprint $table) {
-            $table->dropForeign('category_id');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign('products_category_id_foreign');
         });
         Schema::drop('products');
     }
